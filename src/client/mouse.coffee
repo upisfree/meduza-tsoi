@@ -9,8 +9,8 @@ mouse =
     window.onmousemove = mouse.onmousemove
 
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = 10
-    ctx.lineJoin = ctx.lineCap = 'round'
+    ctx.lineWidth = 1
+    # ctx.lineJoin = ctx.lineCap = 'round'
   onmousedown: ->
     mouse.isDown = true
 
