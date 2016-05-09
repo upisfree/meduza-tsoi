@@ -33,6 +33,7 @@ net =
   onmessage: (e) ->
     manager e.data
   onerror: (e) ->
+    alert 'error, see console'
     console.log e
   socket: null
   send: null

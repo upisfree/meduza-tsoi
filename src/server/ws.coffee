@@ -9,12 +9,15 @@ ws =
       port: config.ws.port
 
     server.on 'connection', (socket) ->
-      console.log 'client connected'
+      console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
       firstSync socket
 
       socket.on 'message', (data, flags) ->
         manager socket, data
+
+      socket.on 'close', (code, message) ->
+        console.log "#{server.clients.length} clients, client quit, bye!"
 
     ws.server = server
 

@@ -139,6 +139,7 @@ net = {
     return manager(e.data);
   },
   onerror: function(e) {
+    alert('error, see console');
     return console.log(e);
   },
   socket: null,
