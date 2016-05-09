@@ -3,7 +3,8 @@ var cache;
 
 cache = {
   mousePath: [],
-  syncPath: []
+  syncPath: [],
+  currentColor: 0x000000
 };
 
 module.exports = cache;
@@ -29,14 +30,21 @@ config = {
   ws: {
     address: 'localhost',
     port: 4070
-  }
+  },
+  size: {
+    width: 1024,
+    height: 640
+  },
+  backgroundColor: 0xffffff
 };
 
 module.exports = config;
 
 
 },{}],4:[function(require,module,exports){
-var mouse, net, renderer, tick;
+var cache, mouse, net, renderer, tick;
+
+cache = require('./cache');
 
 mouse = require('./mouse');
 
@@ -52,10 +60,16 @@ net.init();
 
 renderer.init();
 
+if (Math.random() > 0.5) {
+  cache.currentColor = '0x' + (Math.random() * 0xFFFFFF << 0).toString(16);
+} else {
+  cache.currentColor = '0xffffff';
+}
+
 tick();
 
 
-},{"./mouse":5,"./net":6,"./renderer":12,"./tick":13}],5:[function(require,module,exports){
+},{"./cache":1,"./mouse":5,"./net":6,"./renderer":12,"./tick":13}],5:[function(require,module,exports){
 var mouse;
 
 mouse = {
@@ -71,17 +85,11 @@ mouse = {
     return mouse.isDown = false;
   },
   onmousemove: function(e) {
-    mouse.pos.prev.x = mouse.pos.curr.x;
-    mouse.pos.prev.y = mouse.pos.curr.y;
     mouse.pos.curr.x = e.clientX;
     return mouse.pos.curr.y = e.clientY;
   },
   pos: {
     curr: {
-      x: 0,
-      y: 0
-    },
-    prev: {
       x: 0,
       y: 0
     }
@@ -149,7 +157,10 @@ first = function(data) {
   baseTexture = new PIXI.BaseTexture(image);
   texture = new PIXI.Texture(baseTexture);
   sprite = new PIXI.Sprite(texture);
-  return renderer.stage.addChild(sprite);
+  renderer.stage.addChild(sprite);
+  return renderer.stage.children.sort(function() {
+    return 1;
+  });
 };
 
 module.exports = first;
@@ -230,14 +241,16 @@ module.exports = sync;
 
 
 },{"../cache":1}],12:[function(require,module,exports){
-var renderer;
+var config, renderer;
+
+config = require('./config');
 
 renderer = {
   init: function() {
     var graphics, r, stage;
-    r = PIXI.autoDetectRenderer(1024, 640, {
+    r = PIXI.autoDetectRenderer(config.size.width, config.size.height, {
       antialias: true,
-      backgroundColor: 0xffffff
+      backgroundColor: config.backgroundColor
     });
     document.body.appendChild(r.view);
     stage = new PIXI.Container();
@@ -252,7 +265,7 @@ renderer = {
 module.exports = renderer;
 
 
-},{}],13:[function(require,module,exports){
+},{"./config":3}],13:[function(require,module,exports){
 var cache, mouse, r, tick;
 
 mouse = require('./mouse');
@@ -265,24 +278,22 @@ tick = function() {
   var g, i, k, len, ref, v;
   g = r.graphics;
   if (mouse.isDown) {
-    g.beginFill(0x000000);
+    g.beginFill(cache.currentColor);
     g.drawCircle(mouse.pos.curr.x, mouse.pos.curr.y, 10);
     g.endFill();
-    cache.mousePath.push(mouse.pos.curr.x, mouse.pos.curr.y);
+    cache.mousePath.push(cache.currentColor, mouse.pos.curr.x, mouse.pos.curr.y);
   }
-  if (cache.syncPath.length % 2 === 0) {
+  if (cache.syncPath.length % 3 === 0) {
     ref = cache.syncPath;
-    for (k = i = 0, len = ref.length; i < len; k = i += 2) {
+    for (k = i = 0, len = ref.length; i < len; k = i += 3) {
       v = ref[k];
-      if (cache.syncPath[k] > 0 && cache.syncPath[k + 1] > 0) {
-        g.beginFill(0x000000);
-        g.drawCircle(+cache.syncPath[k], +cache.syncPath[k + 1], 10);
+      if (cache.syncPath[k] && cache.syncPath[k + 1] > 0 && cache.syncPath[k + 2] > 0) {
+        g.beginFill(cache.syncPath[k]);
+        g.drawCircle(+cache.syncPath[k + 1], +cache.syncPath[k + 2], 10);
         g.endFill();
       }
     }
   }
-  mouse.pos.prev.x = mouse.pos.curr.x;
-  mouse.pos.prev.y = mouse.pos.curr.y;
   r.renderer.render(r.stage);
   return requestAnimationFrame(tick);
 };

@@ -8,7 +8,11 @@ first = (data) ->
   texture = new PIXI.Texture baseTexture
 
   sprite = new PIXI.Sprite texture
+
   renderer.stage.addChild sprite
+
+  renderer.stage.children.sort ->
+    return 1
 
 # export
 module.exports = first

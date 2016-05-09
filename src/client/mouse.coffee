@@ -8,8 +8,6 @@ mouse =
   onmouseup: ->
     mouse.isDown = false
   onmousemove: (e) ->
-    mouse.pos.prev.x = mouse.pos.curr.x
-    mouse.pos.prev.y = mouse.pos.curr.y
     mouse.pos.curr.x = e.clientX
     mouse.pos.curr.y = e.clientY
   pos:

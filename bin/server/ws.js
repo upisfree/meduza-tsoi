@@ -1,6 +1,8 @@
-var WebSocketServer, firstSync, manager, ws;
+var WebSocketServer, config, firstSync, manager, ws;
 
 WebSocketServer = require('ws').Server;
+
+config = require('./config');
 
 manager = require('./net/manager');
 
@@ -10,7 +12,7 @@ ws = {
   init: function() {
     var server;
     server = new WebSocketServer({
-      port: 4070
+      port: config.ws.port
     });
     server.on('connection', function(socket) {
       console.log('client connected');

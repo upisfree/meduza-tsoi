@@ -10,14 +10,14 @@ tick = ->
     g.drawCircle mouse.pos.curr.x, mouse.pos.curr.y, 10
     g.endFill()
 
-    cache.mousePath.push mouse.pos.curr.x, mouse.pos.curr.y
+    cache.mousePath.push cache.currentColor, mouse.pos.curr.x, mouse.pos.curr.y
 
   # draw sync
-  if cache.syncPath.length % 2 is 0
-    for v, k in cache.syncPath by 2
-      if cache.syncPath[k] > 0 and cache.syncPath[k + 1] > 0
-        g.beginFill cache.currentColor
-        g.drawCircle +cache.syncPath[k], +cache.syncPath[k + 1], 10
+  if cache.syncPath.length % 3 is 0
+    for v, k in cache.syncPath by 3
+      if cache.syncPath[k] and cache.syncPath[k + 1] > 0 and cache.syncPath[k + 2] > 0
+        g.beginFill cache.syncPath[k]
+        g.drawCircle +cache.syncPath[k + 1], +cache.syncPath[k + 2], 10
         g.endFill()
 
   r.renderer.render r.stage
