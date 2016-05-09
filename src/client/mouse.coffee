@@ -16,9 +16,6 @@ mouse =
     curr:
       x: 0
       y: 0
-    prev:
-      x: 0
-      y: 0
   isDown: false
 
 # export

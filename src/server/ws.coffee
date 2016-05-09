@@ -1,11 +1,12 @@
 WebSocketServer = require('ws').Server
+config = require './config'
 manager = require './net/manager'
 firstSync = require './net/first'
 
 ws =
   init: ->
     server = new WebSocketServer
-      port: 4070
+      port: config.ws.port
 
     server.on 'connection', (socket) ->
       console.log 'client connected'

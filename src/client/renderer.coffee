@@ -1,8 +1,10 @@
+config = require './config'
+
 renderer =
   init: ->
-    r = PIXI.autoDetectRenderer 1024, 640,
+    r = PIXI.autoDetectRenderer config.size.width, config.size.height,
       antialias: true
-      backgroundColor: 0xffffff
+      backgroundColor: config.backgroundColor
 
     document.body.appendChild r.view
 

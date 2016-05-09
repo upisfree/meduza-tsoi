@@ -6,7 +6,7 @@ tick = ->
   g = r.graphics
   
   if mouse.isDown
-    g.beginFill 0x000000
+    g.beginFill cache.currentColor
     g.drawCircle mouse.pos.curr.x, mouse.pos.curr.y, 10
     g.endFill()
 
@@ -16,13 +16,9 @@ tick = ->
   if cache.syncPath.length % 2 is 0
     for v, k in cache.syncPath by 2
       if cache.syncPath[k] > 0 and cache.syncPath[k + 1] > 0
-        g.beginFill 0x000000
+        g.beginFill cache.currentColor
         g.drawCircle +cache.syncPath[k], +cache.syncPath[k + 1], 10
         g.endFill()
-
-  # update coordinates
-  mouse.pos.prev.x = mouse.pos.curr.x
-  mouse.pos.prev.y = mouse.pos.curr.y
 
   r.renderer.render r.stage
 
