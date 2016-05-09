@@ -7,6 +7,7 @@ sendSync = (socket) ->
 
   data = command.concat(path).join(',')
 
+  # if data.length > 0 # не слать пустоту
   socket.send data
 
   if cache.mousePath.length > 25

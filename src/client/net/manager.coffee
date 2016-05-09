@@ -9,8 +9,6 @@ manager = (data) ->
   values = array[1..].filter (n) ->
     n.length isnt 0 
 
-  console.log values
-
   switch command
     when COMMANDS.PING
       ping values

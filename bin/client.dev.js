@@ -152,7 +152,6 @@ manager = function(data) {
   values = array.slice(1).filter(function(n) {
     return n.length !== 0;
   });
-  console.log(values);
   switch (command) {
     case COMMANDS.PING:
       return ping(values);

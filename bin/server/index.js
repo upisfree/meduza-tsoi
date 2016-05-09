@@ -1,24 +1,15 @@
-var WebSocketServer, manager, sendSync, wss;
+var canvas, sendSync, ws;
 
-manager = require('./net/manager');
+ws = require('./ws');
+
+canvas = require('./canvas');
 
 sendSync = require('./net/sync');
 
-WebSocketServer = require('ws').Server;
-
-wss = new WebSocketServer({
-  port: 4070
-});
-
-wss.on('connection', function(ws) {
-  console.log('client connected');
-  return ws.on('message', function(data, flags) {
-    return manager(ws, data);
-  });
-});
+ws.init();
 
 setInterval(function() {
-  return wss.clients.forEach(function(socket) {
+  return ws.server.clients.forEach(function(socket) {
     return sendSync(socket);
   });
 }, 30);
