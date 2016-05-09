@@ -3,7 +3,7 @@ canvas = require './canvas'
 sendSync = require './net/sync'
 
 ws.init()
-# canvas.init()
+canvas.init()
 
 # TODO: отдельный setInterval для каждого клиента в зависимости от пинга
 setInterval ->

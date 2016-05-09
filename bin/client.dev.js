@@ -15,7 +15,8 @@ var COMMANDS;
 COMMANDS = {
   PING: 0,
   PATH: 1,
-  SYNC: 2
+  SYNC: 2,
+  FIRST_SYNC: 3
 };
 
 module.exports = COMMANDS;
@@ -54,7 +55,7 @@ renderer.init();
 tick();
 
 
-},{"./mouse":5,"./net":6,"./renderer":11,"./tick":12}],5:[function(require,module,exports){
+},{"./mouse":5,"./net":6,"./renderer":12,"./tick":13}],5:[function(require,module,exports){
 var mouse;
 
 mouse = {
@@ -136,14 +137,34 @@ net = {
 module.exports = net;
 
 
-},{"./config":3,"./net/manager":7,"./net/path":8}],7:[function(require,module,exports){
-var COMMANDS, manager, ping, sync;
+},{"./config":3,"./net/manager":8,"./net/path":9}],7:[function(require,module,exports){
+var first, renderer;
+
+renderer = require('../renderer');
+
+first = function(data) {
+  var baseTexture, image, sprite, texture;
+  image = new Image();
+  image.src = data[1] + ',' + data[2];
+  baseTexture = new PIXI.BaseTexture(image);
+  texture = new PIXI.Texture(baseTexture);
+  sprite = new PIXI.Sprite(texture);
+  return renderer.stage.addChild(sprite);
+};
+
+module.exports = first;
+
+
+},{"../renderer":12}],8:[function(require,module,exports){
+var COMMANDS, firstSync, manager, ping, sync;
 
 COMMANDS = require('../commands');
 
 ping = require('./ping');
 
 sync = require('./sync');
+
+firstSync = require('./first');
 
 manager = function(data) {
   var array, command, values;
@@ -157,13 +178,15 @@ manager = function(data) {
       return ping(values);
     case COMMANDS.SYNC:
       return sync(values);
+    case COMMANDS.FIRST_SYNC:
+      return firstSync(array);
   }
 };
 
 module.exports = manager;
 
 
-},{"../commands":2,"./ping":9,"./sync":10}],8:[function(require,module,exports){
+},{"../commands":2,"./first":7,"./ping":10,"./sync":11}],9:[function(require,module,exports){
 var COMMANDS, cache, sendPath;
 
 COMMANDS = require('../commands');
@@ -184,7 +207,7 @@ sendPath = function(net) {
 module.exports = sendPath;
 
 
-},{"../cache":1,"../commands":2}],9:[function(require,module,exports){
+},{"../cache":1,"../commands":2}],10:[function(require,module,exports){
 var ping;
 
 ping = function() {
@@ -194,7 +217,7 @@ ping = function() {
 module.exports = ping;
 
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var cache, sync;
 
 cache = require('../cache');
@@ -206,7 +229,7 @@ sync = function(data) {
 module.exports = sync;
 
 
-},{"../cache":1}],11:[function(require,module,exports){
+},{"../cache":1}],12:[function(require,module,exports){
 var renderer;
 
 renderer = {
@@ -229,7 +252,7 @@ renderer = {
 module.exports = renderer;
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var cache, mouse, r, tick;
 
 mouse = require('./mouse');
@@ -239,7 +262,7 @@ cache = require('./cache');
 r = require('./renderer');
 
 tick = function() {
-  var g, i;
+  var g, i, k, len, ref, v;
   g = r.graphics;
   if (mouse.isDown) {
     g.beginFill(0x000000);
@@ -248,14 +271,14 @@ tick = function() {
     cache.mousePath.push(mouse.pos.curr.x, mouse.pos.curr.y);
   }
   if (cache.syncPath.length % 2 === 0) {
-    i = 0;
-    while (i < cache.syncPath.length - 1) {
-      if (cache.syncPath[i] > 0 && cache.syncPath[i + 1] > 0) {
+    ref = cache.syncPath;
+    for (k = i = 0, len = ref.length; i < len; k = i += 2) {
+      v = ref[k];
+      if (cache.syncPath[k] > 0 && cache.syncPath[k + 1] > 0) {
         g.beginFill(0x000000);
-        g.drawCircle(+cache.syncPath[i], +cache.syncPath[i + 1], 10);
+        g.drawCircle(+cache.syncPath[k], +cache.syncPath[k + 1], 10);
         g.endFill();
       }
-      i += 2;
     }
   }
   mouse.pos.prev.x = mouse.pos.curr.x;
@@ -267,4 +290,4 @@ tick = function() {
 module.exports = tick;
 
 
-},{"./cache":1,"./mouse":5,"./renderer":11}]},{},[4]);
+},{"./cache":1,"./mouse":5,"./renderer":12}]},{},[4]);

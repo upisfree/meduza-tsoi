@@ -8,6 +8,8 @@ sendSync = require('./net/sync');
 
 ws.init();
 
+canvas.init();
+
 setInterval(function() {
   return ws.server.clients.forEach(function(socket) {
     return sendSync(socket);

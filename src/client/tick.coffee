@@ -14,14 +14,11 @@ tick = ->
 
   # draw sync
   if cache.syncPath.length % 2 is 0
-    i = 0
-    while i < cache.syncPath.length - 1
-      if cache.syncPath[i] > 0 and cache.syncPath[i + 1] > 0
+    for v, k in cache.syncPath by 2
+      if cache.syncPath[k] > 0 and cache.syncPath[k + 1] > 0
         g.beginFill 0x000000
-        g.drawCircle +cache.syncPath[i], +cache.syncPath[i + 1], 10
+        g.drawCircle +cache.syncPath[k], +cache.syncPath[k + 1], 10
         g.endFill()
-
-      i += 2
 
   # update coordinates
   mouse.pos.prev.x = mouse.pos.curr.x

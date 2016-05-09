@@ -1,8 +1,10 @@
-var WebSocketServer, manager, ws;
+var WebSocketServer, firstSync, manager, ws;
 
 WebSocketServer = require('ws').Server;
 
 manager = require('./net/manager');
+
+firstSync = require('./net/first');
 
 ws = {
   init: function() {
@@ -12,6 +14,7 @@ ws = {
     });
     server.on('connection', function(socket) {
       console.log('client connected');
+      firstSync(socket);
       return socket.on('message', function(data, flags) {
         return manager(socket, data);
       });

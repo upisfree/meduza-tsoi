@@ -1,6 +1,7 @@
 COMMANDS = require '../commands'
 ping = require './ping'
 sync = require './sync'
+firstSync = require './first'
 
 # первое число массива — это команда
 manager = (data) ->
@@ -14,6 +15,8 @@ manager = (data) ->
       ping values
     when COMMANDS.SYNC
       sync values
+    when COMMANDS.FIRST_SYNC
+      firstSync array
 
 # export
 module.exports = manager

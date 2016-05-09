@@ -1,5 +1,6 @@
 WebSocketServer = require('ws').Server
 manager = require './net/manager'
+firstSync = require './net/first'
 
 ws =
   init: ->
@@ -8,6 +9,8 @@ ws =
 
     server.on 'connection', (socket) ->
       console.log 'client connected'
+
+      firstSync socket
 
       socket.on 'message', (data, flags) ->
         manager socket, data
