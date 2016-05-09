@@ -10,7 +10,9 @@ sendSync = function(socket) {
   path = cache.mousePath;
   data = command.concat(path).join(',');
   socket.send(data);
-  return cache.mousePath = [];
+  if (cache.mousePath.length > 25) {
+    return cache.mousePath = [];
+  }
 };
 
 module.exports = sendSync;

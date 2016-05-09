@@ -9,8 +9,8 @@ sendSync = (socket) ->
 
   socket.send data
 
-  # if cache.mousePath.length > 25
-  cache.mousePath = []
+  if cache.mousePath.length > 25
+    cache.mousePath = []
 
 # export
 module.exports = sendSync

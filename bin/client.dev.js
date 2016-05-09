@@ -152,6 +152,7 @@ manager = function(data) {
   values = array.slice(1).filter(function(n) {
     return n.length !== 0;
   });
+  console.log(values);
   switch (command) {
     case COMMANDS.PING:
       return ping(values);
@@ -243,7 +244,7 @@ tick = function() {
   g = r.graphics;
   if (mouse.isDown) {
     g.beginFill(0x000000);
-    g.drawCircle(mouse.pos.prev.x, mouse.pos.prev.y, 10);
+    g.drawCircle(mouse.pos.curr.x, mouse.pos.curr.y, 10);
     g.endFill();
     cache.mousePath.push(mouse.pos.curr.x, mouse.pos.curr.y);
   }

@@ -7,9 +7,7 @@ tick = ->
   
   if mouse.isDown
     g.beginFill 0x000000
-    g.drawCircle mouse.pos.prev.x, mouse.pos.prev.y, 10
-    # g.moveTo mouse.pos.prev.x, mouse.pos.prev.y
-    # g.lineTo mouse.pos.curr.x, mouse.pos.curr.y
+    g.drawCircle mouse.pos.curr.x, mouse.pos.curr.y, 10
     g.endFill()
 
     cache.mousePath.push mouse.pos.curr.x, mouse.pos.curr.y
@@ -22,8 +20,6 @@ tick = ->
         g.beginFill 0x000000
         g.drawCircle +cache.syncPath[i], +cache.syncPath[i + 1], 10
         g.endFill()
-        # g.moveTo cache.syncPath[i], cache.syncPath[i + 1]
-        # g.lineTo cache.syncPath[i + 2], cache.syncPath[i + 3]
 
       i += 2
 

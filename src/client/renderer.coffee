@@ -9,7 +9,6 @@ renderer =
     stage = new PIXI.Container()
 
     graphics = new PIXI.Graphics()
-    # graphics.lineStyle 2, 0x000000, 1
 
     stage.addChild graphics
 
