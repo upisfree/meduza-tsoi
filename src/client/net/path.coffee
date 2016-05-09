@@ -3,12 +3,10 @@ cache = require '../cache'
 
 sendPath = (net) ->
   setInterval ->
-    command = new Uint16Array [COMMANDS.PATH]
-    path = new Uint16Array cache.mousePath
+    command = [COMMANDS.PATH]
+    path = cache.mousePath
 
-    data = new Uint16Array command.length + path.length
-    data.set command
-    data.set path, command.length
+    data = command.concat path
 
     net.socket.send data
 

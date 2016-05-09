@@ -1,11 +1,11 @@
 # ping =
 #   send: ->
-#     ping.data = concat 0, new Uint16Array 32
+#     ping.data = concat 0, new Int16Array 32
 #     ping.time = Date.now()
 
 #     net._socket.send ping.data
 #   onmessage: (data) ->
-#     if ping.data.length is new Uint16Array(data).length
+#     if ping.data.length is new Int16Array(data).length
 #       ping.val = Date.now() - ping.time
 
 #       console.log ping.val

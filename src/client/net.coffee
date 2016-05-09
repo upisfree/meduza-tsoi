@@ -1,4 +1,4 @@
-# первый байт — это команда
+# первое число массива — это команда
 config = require './config'
 manager = require './net/manager'
 sendPath = require './net/path'
@@ -12,16 +12,14 @@ net =
     socket.onmessage = net.onmessage
     socket.onerror = net.onerror
 
-    socket.binaryType = 'arraybuffer'
-
     net.socket = socket
     net.send = net.socket.send
   onopen: ->
-    if net.socket.readyState is 1
-      console.log 'connected to the server'
+    console.log 'connected to the server'
 
-      sendPath net
-      # ping.send()
+    sendPath net
+
+    # ping.send()
   onclose: (e) ->
     if e.wasClean
       console.log 'clean close'

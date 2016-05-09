@@ -1,12 +1,13 @@
 manager = require './net/manager'
 sendSync = require './net/sync'
 WebSocketServer = require('ws').Server
-wss = new WebSocketServer { port: 4070 }
+wss = new WebSocketServer
+  port: 4070
 
 wss.on 'connection', (ws) ->
   console.log 'client connected'
 
-  ws.on 'message', (data) ->
+  ws.on 'message', (data, flags) ->
     manager ws, data
 
 

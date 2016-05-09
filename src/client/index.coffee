@@ -1,17 +1,12 @@
-initCanvas = require './utils/initCanvas'
-getContext = require './utils/getContext'
 mouse = require './mouse'
 tick = require './tick'
 net = require './net'
+renderer = require './renderer'
 
-initCanvas()
+# inits
 mouse.init()
 net.init()
+renderer.init()
 
-requestAnimationFrame tick
-
-# cache = require './cache'
-
-# setInterval ->
-#   console.log cache.mousePath
-# , 1000
+# run the render loop
+tick()

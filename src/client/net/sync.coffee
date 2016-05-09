@@ -1,8 +1,7 @@
 cache = require '../cache'
 
 sync = (data) ->
-  cache.syncPath = data.slice()
-  # console.log data
+  cache.syncPath = data
 
 # export
 module.exports = sync
