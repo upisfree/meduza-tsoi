@@ -28,7 +28,7 @@ var config;
 
 config = {
   ws: {
-    address: 'localhost',
+    address: '81.23.204.151',
     port: 4070
   },
   size: {
@@ -117,6 +117,9 @@ net = {
     socket.onclose = net.onclose;
     socket.onmessage = net.onmessage;
     socket.onerror = net.onerror;
+    socket.addEventListener('ping', function(data, flags) {
+      return console.log(data, flags);
+    });
     net.socket = socket;
     return net.send = net.socket.send;
   },

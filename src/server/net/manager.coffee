@@ -3,7 +3,7 @@ ping = require './ping'
 getPath = require './path'
 
 # первое число массива — это команда
-manager = (ws, data) ->
+manager = (socket, data) ->
   array = data.split ','
   command = +array[0]
   values = array[1..]

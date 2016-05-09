@@ -6,7 +6,7 @@ ping = require('./ping');
 
 getPath = require('./path');
 
-manager = function(ws, data) {
+manager = function(socket, data) {
   var array, command, values;
   array = data.split(',');
   command = +array[0];

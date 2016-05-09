@@ -12,6 +12,9 @@ net =
     socket.onmessage = net.onmessage
     socket.onerror = net.onerror
 
+    socket.addEventListener 'ping', (data, flags) ->
+      console.log data, flags
+
     net.socket = socket
     net.send = net.socket.send
   onopen: ->
