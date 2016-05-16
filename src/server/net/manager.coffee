@@ -1,6 +1,6 @@
 COMMANDS = require '../commands'
-ping = require './ping'
-getPath = require './path'
+ping = require './getPing'
+path = require './path'
 
 # первое число массива — это команда
 manager = (socket, data) ->
@@ -10,9 +10,9 @@ manager = (socket, data) ->
 
   switch command
     when COMMANDS.PING
-      ping values
+      ping array
     when COMMANDS.PATH
-      getPath values
+      path values
 
 # export
 module.exports = manager

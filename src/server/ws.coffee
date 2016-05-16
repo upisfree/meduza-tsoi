@@ -2,6 +2,7 @@ WebSocketServer = require('ws').Server
 config = require './config'
 manager = require './net/manager'
 firstSync = require './net/first'
+sendPing = require './net/sendPing'
 
 ws =
   init: ->
@@ -11,7 +12,9 @@ ws =
     server.on 'connection', (socket) ->
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
-      firstSync socket
+      sendPing socket
+
+      # firstSync socket
 
       socket.on 'message', (data, flags) ->
         manager socket, data

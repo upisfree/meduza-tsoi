@@ -12,15 +12,12 @@ net =
     socket.onmessage = net.onmessage
     socket.onerror = net.onerror
 
-    socket.addEventListener 'ping', (data, flags) ->
-      console.log data, flags
-
     net.socket = socket
     net.send = net.socket.send
   onopen: ->
     console.log 'connected to the server'
 
-    sendPath net
+    # sendPath net
 
     # ping.send()
   onclose: (e) ->
@@ -31,7 +28,7 @@ net =
 
     console.log "code: #{event.code}, reason: #{event.reason}"
   onmessage: (e) ->
-    manager e.data
+    manager e.data, net.socket
   onerror: (e) ->
     alert 'error, see console'
     console.log e

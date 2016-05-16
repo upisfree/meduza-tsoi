@@ -4,7 +4,7 @@ sync = require './sync'
 firstSync = require './first'
 
 # первое число массива — это команда
-manager = (data) ->
+manager = (data, socket) ->
   array = data.split ','
   command = +array[0]
   values = array[1..].filter (n) ->
@@ -12,7 +12,7 @@ manager = (data) ->
 
   switch command
     when COMMANDS.PING
-      ping values
+      ping array, socket
     when COMMANDS.SYNC
       sync values
     when COMMANDS.FIRST_SYNC

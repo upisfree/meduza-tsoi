@@ -117,15 +117,11 @@ net = {
     socket.onclose = net.onclose;
     socket.onmessage = net.onmessage;
     socket.onerror = net.onerror;
-    socket.addEventListener('ping', function(data, flags) {
-      return console.log(data, flags);
-    });
     net.socket = socket;
     return net.send = net.socket.send;
   },
   onopen: function() {
-    console.log('connected to the server');
-    return sendPath(net);
+    return console.log('connected to the server');
   },
   onclose: function(e) {
     if (e.wasClean) {
@@ -136,7 +132,7 @@ net = {
     return console.log("code: " + event.code + ", reason: " + event.reason);
   },
   onmessage: function(e) {
-    return manager(e.data);
+    return manager(e.data, net.socket);
   },
   onerror: function(e) {
     alert('error, see console');
@@ -181,7 +177,7 @@ sync = require('./sync');
 
 firstSync = require('./first');
 
-manager = function(data) {
+manager = function(data, socket) {
   var array, command, values;
   array = data.split(',');
   command = +array[0];
@@ -190,7 +186,7 @@ manager = function(data) {
   });
   switch (command) {
     case COMMANDS.PING:
-      return ping(values);
+      return ping(array, socket);
     case COMMANDS.SYNC:
       return sync(values);
     case COMMANDS.FIRST_SYNC:
@@ -225,8 +221,9 @@ module.exports = sendPath;
 },{"../cache":1,"../commands":2}],10:[function(require,module,exports){
 var ping;
 
-ping = function() {
-  return console.log('ping command');
+ping = function(data, socket) {
+  socket.send(data);
+  return console.log(data);
 };
 
 module.exports = ping;

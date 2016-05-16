@@ -15,8 +15,9 @@
 #   time: null
 #   val: null
 
-ping = ->
-  console.log 'ping command'
+ping = (data, socket) ->
+  socket.send data
+  console.log data
 
 # export
 module.exports = ping

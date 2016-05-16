@@ -1,10 +1,10 @@
-var COMMANDS, getPath, manager, ping;
+var COMMANDS, manager, path, ping;
 
 COMMANDS = require('../commands');
 
-ping = require('./ping');
+ping = require('./getPing');
 
-getPath = require('./path');
+path = require('./path');
 
 manager = function(socket, data) {
   var array, command, values;
@@ -13,9 +13,9 @@ manager = function(socket, data) {
   values = array.slice(1);
   switch (command) {
     case COMMANDS.PING:
-      return ping(values);
+      return ping(array);
     case COMMANDS.PATH:
-      return getPath(values);
+      return path(values);
   }
 };
 
