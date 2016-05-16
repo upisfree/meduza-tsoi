@@ -1,5 +1,6 @@
 COMMANDS = require '../commands'
 ping = require './ping'
+pong = require './pong'
 sync = require './sync'
 firstSync = require './first'
 
@@ -11,8 +12,10 @@ manager = (data, socket) ->
     n.length isnt 0 
 
   switch command
-    when COMMANDS.PING
-      ping array, socket
+    when COMMANDS.PING # на клиенте мы не шлём пинг, мы его только принимаем
+      ping values[0], socket
+    when COMMANDS.PONG
+      pong.get values[0]
     when COMMANDS.SYNC
       sync values
     when COMMANDS.FIRST_SYNC

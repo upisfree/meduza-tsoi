@@ -4,6 +4,7 @@ var cache;
 cache = {
   mousePath: [],
   syncPath: [],
+  ping: 0,
   currentColor: 0x000000
 };
 
@@ -15,9 +16,10 @@ var COMMANDS;
 
 COMMANDS = {
   PING: 0,
-  PATH: 1,
-  SYNC: 2,
-  FIRST_SYNC: 3
+  PONG: 1,
+  PATH: 2,
+  SYNC: 3,
+  FIRST_SYNC: 4
 };
 
 module.exports = COMMANDS;
@@ -71,7 +73,7 @@ setTimeout(function() {
 }, 750);
 
 
-},{"./cache":1,"./mouse":5,"./net":6,"./renderer":12,"./tick":13}],5:[function(require,module,exports){
+},{"./cache":1,"./mouse":5,"./net":6,"./renderer":13,"./tick":14}],5:[function(require,module,exports){
 var mouse;
 
 mouse = {
@@ -134,7 +136,7 @@ net = {
     return console.log("code: " + event.code + ", reason: " + event.reason);
   },
   onmessage: function(e) {
-    return net.socket.send(e.data);
+    return manager(e.data, net.socket);
   },
   onerror: function(e) {
     alert('error, see console');
@@ -168,12 +170,14 @@ first = function(data) {
 module.exports = first;
 
 
-},{"../renderer":12}],8:[function(require,module,exports){
-var COMMANDS, firstSync, manager, ping, sync;
+},{"../renderer":13}],8:[function(require,module,exports){
+var COMMANDS, firstSync, manager, ping, pong, sync;
 
 COMMANDS = require('../commands');
 
 ping = require('./ping');
+
+pong = require('./pong');
 
 sync = require('./sync');
 
@@ -188,7 +192,9 @@ manager = function(data, socket) {
   });
   switch (command) {
     case COMMANDS.PING:
-      return ping(array, socket);
+      return ping(values[0], socket);
+    case COMMANDS.PONG:
+      return pong.get(values[0]);
     case COMMANDS.SYNC:
       return sync(values);
     case COMMANDS.FIRST_SYNC:
@@ -199,7 +205,7 @@ manager = function(data, socket) {
 module.exports = manager;
 
 
-},{"../commands":2,"./first":7,"./ping":10,"./sync":11}],9:[function(require,module,exports){
+},{"../commands":2,"./first":7,"./ping":10,"./pong":11,"./sync":12}],9:[function(require,module,exports){
 var COMMANDS, cache, sendPath;
 
 COMMANDS = require('../commands');
@@ -221,17 +227,38 @@ module.exports = sendPath;
 
 
 },{"../cache":1,"../commands":2}],10:[function(require,module,exports){
-var ping;
+var ping, pong;
+
+pong = require('./pong');
 
 ping = function(data, socket) {
-  socket.send(data);
-  return console.log(data);
+  return pong.send(data, socket);
 };
 
 module.exports = ping;
 
 
-},{}],11:[function(require,module,exports){
+},{"./pong":11}],11:[function(require,module,exports){
+var COMMANDS, cache, pong;
+
+COMMANDS = require('../commands');
+
+cache = require('../cache');
+
+pong = {
+  send: function(data, socket) {
+    return socket.send(COMMANDS.PONG + "," + data);
+  },
+  get: function(data) {
+    cache.ping = data;
+    return console.log(cache.ping);
+  }
+};
+
+module.exports = pong;
+
+
+},{"../cache":1,"../commands":2}],12:[function(require,module,exports){
 var cache, sync;
 
 cache = require('../cache');
@@ -243,7 +270,7 @@ sync = function(data) {
 module.exports = sync;
 
 
-},{"../cache":1}],12:[function(require,module,exports){
+},{"../cache":1}],13:[function(require,module,exports){
 var config, renderer;
 
 config = require('./config');
@@ -268,7 +295,7 @@ renderer = {
 module.exports = renderer;
 
 
-},{"./config":3}],13:[function(require,module,exports){
+},{"./config":3}],14:[function(require,module,exports){
 var cache, mouse, r, tick;
 
 mouse = require('./mouse');
@@ -304,4 +331,4 @@ tick = function() {
 module.exports = tick;
 
 
-},{"./cache":1,"./mouse":5,"./renderer":12}]},{},[4]);
+},{"./cache":1,"./mouse":5,"./renderer":13}]},{},[4]);

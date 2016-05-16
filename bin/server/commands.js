@@ -2,9 +2,10 @@ var COMMANDS;
 
 COMMANDS = {
   PING: 0,
-  PATH: 1,
-  SYNC: 2,
-  FIRST_SYNC: 3
+  PONG: 1,
+  PATH: 2,
+  SYNC: 3,
+  FIRST_SYNC: 4
 };
 
 module.exports = COMMANDS;

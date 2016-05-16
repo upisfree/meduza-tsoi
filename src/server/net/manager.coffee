@@ -1,16 +1,16 @@
 COMMANDS = require '../commands'
-ping = require './getPing'
+pong = require './pong'
 path = require './path'
 
 # первое число массива — это команда
-manager = (socket, data) ->
+manager = (data, socket) ->
   array = data.split ','
   command = +array[0]
   values = array[1..]
 
   switch command
-    when COMMANDS.PING
-      ping array
+    when COMMANDS.PONG
+      pong values[0], socket
     when COMMANDS.PATH
       path values
 

@@ -4,7 +4,7 @@ tick = require './tick'
 net = require './net'
 renderer = require './renderer'
 
-# inits
+# инициализация
 mouse.init()
 renderer.init()
 
@@ -13,10 +13,10 @@ if Math.random() > 0.5
 else
   cache.currentColor = '0xffffff'
 
-# run the render loop
+# запускаем отрисовку
 tick()
 
-# инициализируем соединение позже, чтобы рендеринг не мешал пингу
+# инициализируем соединение позже, чтобы отрисовка не мешала пингу
 setTimeout ->
   net.init()
 , 750

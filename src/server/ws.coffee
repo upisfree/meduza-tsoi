@@ -2,7 +2,7 @@ WebSocketServer = require('ws').Server
 config = require './config'
 manager = require './net/manager'
 firstSync = require './net/first'
-sendPing = require './net/sendPing'
+ping = require './net/ping'
 
 ws =
   init: ->
@@ -13,15 +13,14 @@ ws =
     server.on 'connection', (socket) ->
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
-      socket.send Date.now().toString()
-      # sendPing socket
+      setInterval ->
+        ping socket
+      , 100
 
       # firstSync socket
 
       socket.on 'message', (data, flags) ->
-        console.log (Date.now() - parseInt(data)) + ' ms'
-        # console.log Date.now() - data
-        # manager socket, data
+        manager data, socket
 
       socket.on 'close', (code, message) ->
         console.log "#{server.clients.length} clients, client quit, bye!"

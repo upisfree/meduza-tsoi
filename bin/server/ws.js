@@ -1,4 +1,4 @@
-var WebSocketServer, config, firstSync, manager, sendPing, ws;
+var WebSocketServer, config, firstSync, manager, ping, ws;
 
 WebSocketServer = require('ws').Server;
 
@@ -8,7 +8,7 @@ manager = require('./net/manager');
 
 firstSync = require('./net/first');
 
-sendPing = require('./net/sendPing');
+ping = require('./net/ping');
 
 ws = {
   init: function() {
@@ -19,9 +19,11 @@ ws = {
     });
     server.on('connection', function(socket) {
       console.log(server.clients.length + " clients, new: ip:" + socket._socket.remoteAddress);
-      socket.send(Date.now().toString());
+      setInterval(function() {
+        return ping(socket);
+      }, 100);
       socket.on('message', function(data, flags) {
-        return console.log((Date.now() - parseInt(data)) + ' ms');
+        return manager(data, socket);
       });
       return socket.on('close', function(code, message) {
         return console.log(server.clients.length + " clients, client quit, bye!");
