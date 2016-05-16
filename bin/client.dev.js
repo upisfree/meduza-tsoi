@@ -28,7 +28,7 @@ var config;
 
 config = {
   ws: {
-    address: '146.185.151.189',
+    address: 'localhost',
     port: 4070
   },
   size: {
@@ -56,8 +56,6 @@ renderer = require('./renderer');
 
 mouse.init();
 
-net.init();
-
 renderer.init();
 
 if (Math.random() > 0.5) {
@@ -67,6 +65,10 @@ if (Math.random() > 0.5) {
 }
 
 tick();
+
+setTimeout(function() {
+  return net.init();
+}, 750);
 
 
 },{"./cache":1,"./mouse":5,"./net":6,"./renderer":12,"./tick":13}],5:[function(require,module,exports){
@@ -132,7 +134,7 @@ net = {
     return console.log("code: " + event.code + ", reason: " + event.reason);
   },
   onmessage: function(e) {
-    return manager(e.data, net.socket);
+    return net.socket.send(e.data);
   },
   onerror: function(e) {
     alert('error, see console');

@@ -6,7 +6,6 @@ renderer = require './renderer'
 
 # inits
 mouse.init()
-net.init()
 renderer.init()
 
 if Math.random() > 0.5
@@ -16,3 +15,8 @@ else
 
 # run the render loop
 tick()
+
+# инициализируем соединение позже, чтобы рендеринг не мешал пингу
+setTimeout ->
+  net.init()
+, 750

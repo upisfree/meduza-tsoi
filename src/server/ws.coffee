@@ -8,16 +8,20 @@ ws =
   init: ->
     server = new WebSocketServer
       port: config.ws.port
+      perMessageDeflate: false
 
     server.on 'connection', (socket) ->
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
-      sendPing socket
+      socket.send Date.now().toString()
+      # sendPing socket
 
       # firstSync socket
 
       socket.on 'message', (data, flags) ->
-        manager socket, data
+        console.log (Date.now() - parseInt(data)) + ' ms'
+        # console.log Date.now() - data
+        # manager socket, data
 
       socket.on 'close', (code, message) ->
         console.log "#{server.clients.length} clients, client quit, bye!"

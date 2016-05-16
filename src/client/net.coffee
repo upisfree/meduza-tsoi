@@ -28,7 +28,9 @@ net =
 
     console.log "code: #{event.code}, reason: #{event.reason}"
   onmessage: (e) ->
-    manager e.data, net.socket
+    # console.log e.data
+    net.socket.send e.data
+    # manager e.data, net.socket
   onerror: (e) ->
     alert 'error, see console'
     console.log e
