@@ -1,17 +1,15 @@
 COMMANDS = require '../commands'
 cache = require '../cache'
 
-sendPath = (net) ->
-  setInterval ->
-    command = [COMMANDS.PATH]
-    path = cache.mousePath
+sendPath = (socket) ->
+  command = [COMMANDS.PATH]
+  path = cache.mousePath
 
-    data = command.concat path
+  data = command.concat path
 
-    net.socket.send data
+  socket.send data
 
-    cache.mousePath = []
-  , 30
+  cache.mousePath = []
 
 # export
 module.exports = sendPath

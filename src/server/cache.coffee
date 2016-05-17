@@ -1,4 +1,5 @@
 cache =
+  clients: {}
   mousePath: []
 
 # export

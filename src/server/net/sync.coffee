@@ -2,6 +2,7 @@ WebSocket = require 'ws'
 COMMANDS = require '../commands'
 cache = require '../cache'
 
+# синхронизация путей
 sendSync = (socket) ->
   command = [COMMANDS.SYNC]
   path = cache.mousePath

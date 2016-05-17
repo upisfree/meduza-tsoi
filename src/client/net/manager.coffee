@@ -2,7 +2,7 @@ COMMANDS = require '../commands'
 ping = require './ping'
 pong = require './pong'
 sync = require './sync'
-firstSync = require './first'
+fullSync = require './full'
 
 # первое число массива — это команда
 manager = (data, socket) ->
@@ -15,11 +15,11 @@ manager = (data, socket) ->
     when COMMANDS.PING # на клиенте мы не шлём пинг, мы его только принимаем
       ping values[0], socket
     when COMMANDS.PONG
-      pong.get values[0]
+      pong.get values[0], socket
     when COMMANDS.SYNC
       sync values
-    when COMMANDS.FIRST_SYNC
-      firstSync array
+    when COMMANDS.FULL_SYNC
+      fullSync array
 
 # export
 module.exports = manager

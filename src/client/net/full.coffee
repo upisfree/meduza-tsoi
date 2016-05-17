@@ -1,6 +1,6 @@
 renderer = require '../renderer'
 
-first = (data) ->
+full = (data) ->
   image = new Image()
   image.src = data[1] + ',' + data[2]
 
@@ -15,4 +15,4 @@ first = (data) ->
     return 1
 
 # export
-module.exports = first
+module.exports = full

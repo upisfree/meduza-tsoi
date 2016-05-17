@@ -1,4 +1,5 @@
 COMMANDS = require '../commands'
+interval = require './interval'
 
 # принимаем понг, считаем пинг, отсылаем его обратно и перезапускает setInterval клиента
 pong = (data, socket) ->
@@ -6,9 +7,7 @@ pong = (data, socket) ->
     socket._ping = Date.now() - socket._pingSendTime
     socket.send "#{COMMANDS.PONG},#{socket._ping}"
 
-    console.log socket._ping
-
-    # clearInterval -> setInterval
+    interval socket
   else
     console.log 'ping error'
 

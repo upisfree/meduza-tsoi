@@ -1,7 +1,7 @@
 # первое число массива — это команда
 config = require './config'
+cache = require './cache'
 manager = require './net/manager'
-sendPath = require './net/path'
 
 net =
   init: ->
@@ -16,11 +16,9 @@ net =
     net.send = net.socket.send
   onopen: ->
     console.log 'connected to the server'
-
-    # sendPath net
-
-    # ping.send()
   onclose: (e) ->
+    clearInterval cache.syncInterval
+
     if e.wasClean
       console.log 'clean close'
     else
@@ -30,6 +28,8 @@ net =
   onmessage: (e) ->
     manager e.data, net.socket
   onerror: (e) ->
+    clearInterval cache.syncInterval
+  
     alert 'error, see console'
     console.log e
   socket: null
