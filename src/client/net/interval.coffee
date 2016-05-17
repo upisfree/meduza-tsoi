@@ -1,14 +1,14 @@
-cache = require '../cache'
+tmp = require '../tmp'
 path = require './path'
 
 interval = (socket) ->
-  clearInterval cache.syncInterval
+  clearInterval tmp.syncInterval
 
-  console.log cache.ping
+  console.log tmp.ping
 
-  cache.syncInterval = setInterval ->
+  tmp.syncInterval = setInterval ->
     path socket
-  , cache.ping
+  , tmp.ping
 
 # export
 module.exports = interval

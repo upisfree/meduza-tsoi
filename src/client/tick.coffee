@@ -1,23 +1,23 @@
 mouse = require './mouse'
-cache = require './cache'
+tmp = require './tmp'
 r = require './renderer'
 
 tick = ->
   g = r.graphics
   
   if mouse.isDown
-    g.beginFill cache.currentColor
+    g.beginFill tmp.currentColor
     g.drawCircle mouse.pos.curr.x, mouse.pos.curr.y, 10
     g.endFill()
 
-    cache.mousePath.push cache.currentColor, mouse.pos.curr.x, mouse.pos.curr.y
+    tmp.mousePath.push tmp.currentColor, mouse.pos.curr.x, mouse.pos.curr.y
 
   # draw sync
-  if cache.syncPath.length % 3 is 0
-    for v, k in cache.syncPath by 3
-      if cache.syncPath[k] and cache.syncPath[k + 1] > 0 and cache.syncPath[k + 2] > 0
-        g.beginFill cache.syncPath[k]
-        g.drawCircle +cache.syncPath[k + 1], +cache.syncPath[k + 2], 10
+  if tmp.syncPath.length % 3 is 0
+    for v, k in tmp.syncPath by 3
+      if tmp.syncPath[k] and tmp.syncPath[k + 1] > 0 and tmp.syncPath[k + 2] > 0
+        g.beginFill tmp.syncPath[k]
+        g.drawCircle +tmp.syncPath[k + 1], +tmp.syncPath[k + 2], 10
         g.endFill()
 
   r.renderer.render r.stage

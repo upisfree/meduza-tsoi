@@ -1,6 +1,6 @@
 WebSocketServer = require('ws').Server
 config = require './config'
-cache = require './cache'
+tmp = require './tmp'
 manager = require './net/manager'
 fullSync = require './net/full'
 ping = require './net/ping'
@@ -13,7 +13,7 @@ ws =
 
     server.on 'connection', (socket) ->
       socket._id = generateId 8
-      cache.clients[socket._id] = socket
+      tmp.clients[socket._id] = socket
 
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
@@ -32,7 +32,7 @@ ws =
         clearInterval socket._fullSyncInterval
         clearInterval socket._syncInterval
         
-        delete cache.clients[socket._id]
+        delete tmp.clients[socket._id]
 
         console.log "#{server.clients.length} clients, client quit, bye!"
 

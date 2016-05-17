@@ -1,8 +1,8 @@
-cache = require '../cache'
+tmp = require '../tmp'
 canvas = require '../canvas'
 
 getPath = (path) ->
-  cache.mousePath.push path
+  tmp.mousePath.push path
 
   ctx = canvas.ctx
 

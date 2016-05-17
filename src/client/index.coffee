@@ -1,4 +1,4 @@
-cache = require './cache'
+tmp = require './tmp'
 mouse = require './mouse'
 tick = require './tick'
 net = require './net'
@@ -9,9 +9,9 @@ mouse.init()
 renderer.init()
 
 # if Math.random() > 0.5
-cache.currentColor = '0x' + (Math.random() * 0xFFFFFF << 0).toString(16)
+tmp.currentColor = '0x' + (Math.random() * 0xFFFFFF << 0).toString(16)
 # else
-  # cache.currentColor = '0xffffff'
+  # tmp.currentColor = '0xffffff'
 
 # запускаем отрисовку
 tick()

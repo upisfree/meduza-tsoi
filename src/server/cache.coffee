@@ -1,6 +1,6 @@
-cache =
+tmp =
   clients: {}
   mousePath: []
 
 # export
-module.exports = cache
+module.exports = tmp

@@ -1,7 +1,7 @@
-cache = require '../cache'
+tmp = require '../tmp'
 
 sync = (data) ->
-  cache.syncPath = data
+  tmp.syncPath = data
 
 # export
 module.exports = sync

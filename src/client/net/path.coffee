@@ -1,15 +1,15 @@
 COMMANDS = require '../commands'
-cache = require '../cache'
+tmp = require '../tmp'
 
 sendPath = (socket) ->
   command = [COMMANDS.PATH]
-  path = cache.mousePath
+  path = tmp.mousePath
 
   data = command.concat path
 
   socket.send data
 
-  cache.mousePath = []
+  tmp.mousePath = []
 
 # export
 module.exports = sendPath

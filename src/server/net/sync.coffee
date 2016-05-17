@@ -1,11 +1,11 @@
 WebSocket = require 'ws'
 COMMANDS = require '../commands'
-cache = require '../cache'
+tmp = require '../tmp'
 
 # синхронизация путей
 sendSync = (socket) ->
   command = [COMMANDS.SYNC]
-  path = cache.mousePath
+  path = tmp.mousePath
 
   data = command.concat(path).join(',')
 
@@ -14,8 +14,8 @@ sendSync = (socket) ->
   if socket.readyState is WebSocket.OPEN
     socket.send data
 
-  if cache.mousePath.length > 25
-    cache.mousePath = []
+  if tmp.mousePath.length > 25
+    tmp.mousePath = []
 
 # export
 module.exports = sendSync

@@ -1,6 +1,6 @@
 # первое число массива — это команда
 config = require './config'
-cache = require './cache'
+tmp = require './tmp'
 manager = require './net/manager'
 
 net =
@@ -17,7 +17,7 @@ net =
   onopen: ->
     console.log 'connected to the server'
   onclose: (e) ->
-    clearInterval cache.syncInterval
+    clearInterval tmp.syncInterval
 
     if e.wasClean
       console.log 'clean close'
@@ -28,7 +28,7 @@ net =
   onmessage: (e) ->
     manager e.data, net.socket
   onerror: (e) ->
-    clearInterval cache.syncInterval
+    clearInterval tmp.syncInterval
   
     alert 'error, see console'
     console.log e

@@ -1,10 +1,10 @@
-cache = require '../cache'
+tmp = require '../tmp'
 generateRandomString = require './generateRandomString'
 
 generateId = ->
   id = generateRandomString 8
   
-  if not cache.clients[id]
+  if not tmp.clients[id]
     return id
   else
     generateId()
