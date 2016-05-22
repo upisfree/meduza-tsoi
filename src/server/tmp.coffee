@@ -1,5 +1,4 @@
 tmp =
-  clients: {}
   mousePath: []
 
 # export

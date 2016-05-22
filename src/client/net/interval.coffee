@@ -1,10 +1,11 @@
 tmp = require '../tmp'
 path = require './path'
+debug = require '../debug'
 
 interval = (socket) ->
   clearInterval tmp.syncInterval
 
-  console.log tmp.ping
+  debug.setPing tmp.ping
 
   tmp.syncInterval = setInterval ->
     path socket

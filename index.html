@@ -19,10 +19,20 @@ canvas
   top: 0;
   left: 0;
 }
+
+#ping
+{
+  position: absolute;
+  top: -2px;
+  left: 10px;
+  font-size: 16px;
+  font-family: sans-serif;
+  z-index: 10;
+}
     </style>
   </head>
   <body>
-    <canvas></canvas>
+    <h1 id="ping">0 ms</h1>
 
     <script src="./lib/pixi.min.js"></script>
     <script src="./bin/client.dev.js"></script>

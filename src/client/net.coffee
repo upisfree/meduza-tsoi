@@ -2,6 +2,7 @@
 config = require './config'
 tmp = require './tmp'
 manager = require './net/manager'
+ping = require './net/ping'
 
 net =
   init: ->
@@ -16,6 +17,11 @@ net =
     net.send = net.socket.send
   onopen: ->
     console.log 'connected to the server'
+
+    ping net.socket
+    tmp.pingInterval = setInterval ->
+      ping net.socket
+    , config.period.ping
   onclose: (e) ->
     clearInterval tmp.syncInterval
 
