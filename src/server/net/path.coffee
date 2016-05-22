@@ -1,7 +1,8 @@
 tmp = require '../tmp'
 canvas = require '../canvas'
+sync = require './sync'
 
-getPath = (path) ->
+path = (path, socket) ->
   tmp.mousePath.push path
 
   ctx = canvas.ctx
@@ -14,5 +15,8 @@ getPath = (path) ->
       ctx.fill()
       ctx.closePath()
 
+  # шлём пути
+  sync socket
+
 # export
-module.exports = getPath
+module.exports = path

@@ -12,7 +12,7 @@ manager = (data, socket) ->
     when COMMANDS.PING
       ping values, socket
     when COMMANDS.PATH
-      path values
+      path values, socket
 
 # export
 module.exports = manager

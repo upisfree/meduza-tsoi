@@ -3,7 +3,7 @@ COMMANDS = require '../commands'
 tmp = require '../tmp'
 
 # синхронизация путей
-sendSync = (socket) ->
+sync = (socket) ->
   command = [COMMANDS.SYNC]
   path = tmp.mousePath
 
@@ -18,4 +18,4 @@ sendSync = (socket) ->
     tmp.mousePath = []
 
 # export
-module.exports = sendSync
+module.exports = sync
