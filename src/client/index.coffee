@@ -2,21 +2,26 @@ tmp = require './tmp'
 mouse = require './mouse'
 tick = require './tick'
 net = require './net'
-renderer = require './renderer'
+initCanvas = require './utils/initCanvas'
 
 # инициализация
 mouse.init()
-renderer.init()
+initCanvas()
 
 # if Math.random() > 0.5
-tmp.currentColor = '0x' + (Math.random() * 0xFFFFFF << 0).toString(16)
+tmp.currentColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
+
+ctx.fillStyle = tmp.currentColor
+ctx.strokeStyle = tmp.currentColor
+ctx.lineJoin = "round"
+ctx.lineWidth = 5
 # else
   # tmp.currentColor = '0xffffff'
 
 # запускаем отрисовку
-tick()
+requestAnimationFrame tick
 
 # инициализируем соединение позже, чтобы отрисовка не мешала пингу
-setTimeout ->
-  net.init()
-, 750
+# setTimeout ->
+#   net.init()
+# , 750

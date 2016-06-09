@@ -1,7 +1,7 @@
 tmp = require '../tmp'
 
 sync = (data) ->
-  tmp.syncPath = data
+  tmp.syncData = data[2..]
 
 # export
 module.exports = sync

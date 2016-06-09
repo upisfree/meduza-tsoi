@@ -1,6 +1,7 @@
 var cache;
 
 cache = {
+  clients: {},
   mousePath: []
 };
 

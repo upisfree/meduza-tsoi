@@ -1,22 +1,19 @@
-var COMMANDS, WebSocket, cache, sendSync;
+var COMMANDS, WebSocket, canvas, sync, tmp;
 
 WebSocket = require('ws');
 
 COMMANDS = require('../commands');
 
-cache = require('../cache');
+canvas = require('../canvas');
 
-sendSync = function(socket) {
-  var command, data, path;
-  command = [COMMANDS.SYNC];
-  path = cache.mousePath;
-  data = command.concat(path).join(',');
-  if (socket.readyState === WebSocket.OPEN) {
-    socket.send(data);
-  }
-  if (cache.mousePath.length > 25) {
-    return cache.mousePath = [];
-  }
+tmp = require('../tmp');
+
+sync = function(socket) {
+  return canvas.canvas.toDataURL('image/png', function(err, url) {
+    if (socket.readyState === WebSocket.OPEN) {
+      return socket.send(COMMANDS.SYNC + ',' + url);
+    }
+  });
 };
 
-module.exports = sendSync;
+module.exports = sync;

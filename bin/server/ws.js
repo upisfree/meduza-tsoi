@@ -1,27 +1,25 @@
-var WebSocketServer, config, firstSync, manager, ping, ws;
+var WebSocketServer, config, fullSync, manager, tmp, ws;
 
 WebSocketServer = require('ws').Server;
 
 config = require('./config');
 
+tmp = require('./tmp');
+
 manager = require('./net/manager');
 
-firstSync = require('./net/first');
-
-ping = require('./net/ping');
+fullSync = require('./net/full');
 
 ws = {
   init: function() {
     var server;
     server = new WebSocketServer({
-      port: config.ws.port,
-      perMessageDeflate: false
+      port: config.ws.port
     });
     server.on('connection', function(socket) {
       console.log(server.clients.length + " clients, new: ip:" + socket._socket.remoteAddress);
-      setInterval(function() {
-        return ping(socket);
-      }, 100);
+      socket._color = '0x000000';
+      fullSync(socket);
       socket.on('message', function(data, flags) {
         return manager(data, socket);
       });

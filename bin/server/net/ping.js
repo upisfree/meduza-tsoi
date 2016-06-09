@@ -1,11 +1,13 @@
-var COMMANDS, ping;
+var COMMANDS, WebSocket, ping;
 
 COMMANDS = require('../commands');
 
-ping = function(socket) {
-  socket._pingSendTime = Date.now();
-  socket._pingSendData = 'random data here';
-  return socket.send(COMMANDS.PING + "," + socket._pingSendData);
+WebSocket = require('ws');
+
+ping = function(data, socket) {
+  if (socket.readyState === WebSocket.OPEN) {
+    return socket.send(COMMANDS.PONG + "," + data);
+  }
 };
 
 module.exports = ping;

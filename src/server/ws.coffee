@@ -12,6 +12,8 @@ ws =
     server.on 'connection', (socket) ->
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
+      socket._color = '0x000000'
+
       fullSync socket
 
       socket.on 'message', (data, flags) ->

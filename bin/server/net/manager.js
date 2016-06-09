@@ -1,8 +1,8 @@
-var COMMANDS, manager, path, pong;
+var COMMANDS, manager, path, ping;
 
 COMMANDS = require('../commands');
 
-pong = require('./pong');
+ping = require('./ping');
 
 path = require('./path');
 
@@ -12,10 +12,10 @@ manager = function(data, socket) {
   command = +array[0];
   values = array.slice(1);
   switch (command) {
-    case COMMANDS.PONG:
-      return pong(values[0], socket);
+    case COMMANDS.PING:
+      return ping(values, socket);
     case COMMANDS.PATH:
-      return path(values);
+      return path(values, socket);
   }
 };
 
