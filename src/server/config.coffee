@@ -2,8 +2,8 @@ config =
   ws:
     port: 4070
   size:
-    width: 1024
-    height: 640
+    width: 640
+    height: 480
   defaultColor: '#000000'
 
 # export

@@ -4,8 +4,8 @@ config =
     # address: '146.185.151.189'
     port: 4070
   size:
-    width: 1024
-    height: 640
+    width: 640
+    height: 480
   period:
     ping: 2000
   backgroundColor: 0xffffff
