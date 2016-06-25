@@ -1,18 +1,9 @@
-renderer = require '../renderer'
-
 full = (data) ->
   image = new Image()
+  image.onload = ->
+    ctx.drawImage image, 0, 0
+
   image.src = data[1] + ',' + data[2]
-
-  baseTexture = new PIXI.BaseTexture image
-  texture = new PIXI.Texture baseTexture
-
-  sprite = new PIXI.Sprite texture
-
-  renderer.stage.addChild sprite
-
-  renderer.stage.children.sort ->
-    return 1
 
 # export
 module.exports = full

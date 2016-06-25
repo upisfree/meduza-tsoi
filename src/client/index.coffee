@@ -19,6 +19,6 @@ ctx.strokeStyle = tmp.currentColor
 requestAnimationFrame tick
 
 # инициализируем соединение позже, чтобы отрисовка не мешала пингу
-# setTimeout ->
-#   net.init()
-# , 750
+setTimeout ->
+  net.init()
+, 750

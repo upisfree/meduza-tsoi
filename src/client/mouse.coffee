@@ -12,6 +12,7 @@ mouse =
   onmouseup: ->
     mouse.isDown = false
 
+    tmp.netPath.push tmp.mousePath
     tmp.mousePath = []
   onmousemove: (e) ->
     if mouse.isDown
