@@ -15,7 +15,7 @@ gulp.task('client-dev', function()
   })
   .transform('coffeeify')
   .bundle()
-  .pipe(source('client.dev.js'))
+  .pipe(source('client.js'))
   .pipe(buffer())
   .pipe(gulp.dest('./bin'));
 });
@@ -29,7 +29,7 @@ gulp.task('client-min', function() // release
   })
   .transform('coffeeify')
   .bundle()
-  .pipe(source('client.min.js'))
+  .pipe(source('client.js'))
   .pipe(buffer())
   .pipe(uglify())
   .pipe(gulp.dest('./bin'));
