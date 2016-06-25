@@ -1,7 +1,7 @@
 tmp =
   mousePath: [] # mousePath - это буфер для отрисовки линии юзером
   netPath: [] # netPath - это буфер для отправки линий, отрисованных юзером
-  syncPath: [] # syncPath - это буфер для пришедших с сервера линий
+  syncData: '' # syncData - это буфер для пришедших с сервера линий
   ping: 0
   currentColor: 0x000000
 
