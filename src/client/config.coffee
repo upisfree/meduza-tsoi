@@ -10,6 +10,7 @@ config =
     ping: 2000
     fullSync: 5000
   backgroundColor: 0xffffff
+  lineWidth: 2
 
 # export
 module.exports = config

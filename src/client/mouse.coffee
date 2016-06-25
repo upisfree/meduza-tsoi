@@ -15,10 +15,15 @@ mouse =
     tmp.mousePath = []
   onmousemove: (e) ->
     if mouse.isDown
-      tmp.mousePath.push [e.clientX, e.clientY]
+      # MOVE TO TICK.COFFEE
+      p = tmp.mousePath
+      
+      ctx.beginPath()
+      ctx.moveTo p[p.length - 1][0], p[p.length - 1][1]
+      ctx.lineTo e.clientX, e.clientY
+      ctx.stroke()
 
-      if tmp.mousePath.length > 24
-        tmp.mousePath.splice 0, 1
+      p.push [e.clientX, e.clientY]
   isDown: false
 
 # export

@@ -8,6 +8,9 @@ initCanvas = ->
 
   window.ctx = canvas.getContext '2d' # оптимизация — зачем при каждом тике вызывать контекст?
 
+  ctx.lineJoin = 'round'
+  ctx.lineWidth = config.lineWidth
+
 window.onresize = ->
   initCanvas()
 

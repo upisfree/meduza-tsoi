@@ -10,11 +10,8 @@ initCanvas()
 
 # if Math.random() > 0.5
 tmp.currentColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-
 ctx.fillStyle = tmp.currentColor
 ctx.strokeStyle = tmp.currentColor
-ctx.lineJoin = "round"
-ctx.lineWidth = 5
 # else
   # tmp.currentColor = '0xffffff'
 
