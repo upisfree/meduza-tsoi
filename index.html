@@ -18,21 +18,34 @@ canvas
   position: absolute;
   top: 0;
   left: 0;
+  border: 1px solid #000;
 }
 
-#ping
+#debug
 {
   position: absolute;
-  top: -2px;
+  top: 20px;
   left: 10px;
   font-size: 16px;
   font-family: sans-serif;
+  font-weight: bold;
   z-index: 10;
+}
+
+#debug p
+{
+  margin-top: -10px;
 }
     </style>
   </head>
   <body>
-    <h1 id="ping">0 ms</h1>
+    <div id="debug">
+<p id="ping">ping: 0 ms</p>
+<p id="color">color: #000000</p>
+<p id="x-offset">x offset: 0</p>
+<p id="y-offset">y offset: 0</p>
+    </div>
+
     <canvas></canvas>
 
     <script src="./bin/client.dev.js"></script>
