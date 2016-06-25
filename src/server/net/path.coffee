@@ -10,7 +10,7 @@ path = (path, socket) ->
       ctx.beginPath()
       ctx.moveTo parseInt(path[k], 10), parseInt(path[k + 1], 10)
       ctx.lineTo parseInt(path[k + 2], 10), parseInt(path[k + 3], 10)
-      ctx.fillStyle = socket._color.replace '0x', '#'
+      ctx.strokeStyle = socket._color
       ctx.stroke()
       ctx.closePath()
 

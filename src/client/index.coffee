@@ -8,10 +8,6 @@ initCanvas = require './utils/initCanvas'
 mouse.init()
 initCanvas()
 
-tmp.currentColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-ctx.fillStyle = tmp.currentColor
-ctx.strokeStyle = tmp.currentColor
-
 # запускаем отрисовку
 requestAnimationFrame tick
 

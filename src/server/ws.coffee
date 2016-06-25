@@ -11,7 +11,7 @@ ws =
     server.on 'connection', (socket) ->
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
-      socket._color = '0x000000'
+      socket._color = config.defaultColor
 
       socket.on 'message', (data, flags) ->
         manager data, socket

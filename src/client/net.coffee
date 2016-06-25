@@ -3,6 +3,7 @@ config = require './config'
 tmp = require './tmp'
 manager = require './net/manager'
 ping = require './net/ping'
+changeColor = require './net/color'
 
 net =
   init: ->
@@ -21,6 +22,9 @@ net =
     ping net.socket
     tmp.pingInterval = setInterval ->
       ping net.socket
+
+      # debug
+      changeColor net.socket
     , config.period.ping
   onclose: (e) ->
     clearInterval tmp.syncInterval
