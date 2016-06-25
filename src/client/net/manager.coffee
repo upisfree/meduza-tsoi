@@ -1,7 +1,6 @@
 COMMANDS = require '../commands'
 pong = require './pong'
 sync = require './sync'
-fullSync = require './full'
 tmp = require '../tmp'
 
 # первое число массива — это команда
@@ -16,8 +15,6 @@ manager = (data, socket) ->
       pong values[0], socket
     when COMMANDS.SYNC
       sync data
-    when COMMANDS.FULL_SYNC
-      fullSync array
 
 # export
 module.exports = manager

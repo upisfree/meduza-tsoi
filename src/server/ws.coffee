@@ -2,7 +2,6 @@ WebSocketServer = require('ws').Server
 config = require './config'
 tmp = require './tmp'
 manager = require './net/manager'
-fullSync = require './net/full'
 
 ws =
   init: ->
@@ -13,8 +12,6 @@ ws =
       console.log "#{server.clients.length} clients, new: ip:#{socket._socket.remoteAddress}"
 
       socket._color = '0x000000'
-
-      fullSync socket
 
       socket.on 'message', (data, flags) ->
         manager data, socket
