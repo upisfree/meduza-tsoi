@@ -18,7 +18,7 @@ mouse =
     if mouse.isDown
       # MOVE TO TICK.COFFEE
       p = tmp.mousePath
-      
+
       ctx.beginPath()
       ctx.moveTo p[p.length - 1][0], p[p.length - 1][1]
       ctx.lineTo e.clientX, e.clientY
