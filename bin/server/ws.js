@@ -17,14 +17,6 @@ ws = {
     server.on('connection', function(socket) {
       console.log(server.clients.length + " clients, new: ip:" + socket._socket.remoteAddress);
       socket._color = config.defaultColor;
-      socket._size = {
-        x: 1024,
-        y: 640
-      };
-      socket._offset = {
-        x: 0,
-        y: 0
-      };
       socket.on('message', function(data, flags) {
         return manager(data, socket);
       });

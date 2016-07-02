@@ -17,7 +17,7 @@ var config;
 
 config = {
   ws: {
-    address: 'localhost',
+    address: '146.185.151.189',
     port: 4070
   },
   size: {
@@ -290,7 +290,7 @@ interval = require('./interval');
 
 pong = function(data, socket) {
   if (data === tmp.pingSendData) {
-    tmp.ping = 80;
+    tmp.ping = Date.now() - tmp.pingSendTime;
     return interval(socket);
   } else {
     return console.log('pong error');
