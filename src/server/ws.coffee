@@ -13,6 +13,14 @@ ws =
 
       socket._color = config.defaultColor
 
+      socket._size =
+        x: 1024
+        y: 640
+
+      socket._offset =
+        x: 0
+        y: 0
+
       socket.on 'message', (data, flags) ->
         manager data, socket
 

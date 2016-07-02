@@ -8,7 +8,9 @@ mouse =
   onmousedown: (e) ->
     mouse.isDown = true
 
-    tmp.mousePath.push [e.clientX, e.clientY]
+    console.log e
+
+    tmp.mousePath.push [e.pageX, e.pageY]
   onmouseup: ->
     mouse.isDown = false
 
@@ -18,13 +20,13 @@ mouse =
     if mouse.isDown
       # MOVE TO TICK.COFFEE
       p = tmp.mousePath
-
+      
       ctx.beginPath()
       ctx.moveTo p[p.length - 1][0], p[p.length - 1][1]
-      ctx.lineTo e.clientX, e.clientY
+      ctx.lineTo e.pageX, e.pageY
       ctx.stroke()
 
-      p.push [e.clientX, e.clientY]
+      p.push [e.pageX, e.pageY]
   isDown: false
 
 # export
