@@ -17,7 +17,7 @@ var config;
 
 config = {
   ws: {
-    address: '146.185.151.189',
+    address: 'localhost',
     port: 4070
   },
   size: {

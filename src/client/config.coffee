@@ -1,7 +1,7 @@
 config =
   ws:
-    # address: 'localhost'
-    address: '146.185.151.189'
+    address: 'localhost'
+    # address: '146.185.151.189'
     port: 4070
   size:
     width: 4096
